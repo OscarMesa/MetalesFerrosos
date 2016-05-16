@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\CaracteristicaMarca */
 
-$this->title = 'Create Caracteristica Marca';
+$this->title = 'Crear Caracteristica de Marca';
 $this->params['breadcrumbs'][] = ['label' => 'Caracteristica Marcas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

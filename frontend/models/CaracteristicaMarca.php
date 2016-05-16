@@ -49,9 +49,9 @@ class CaracteristicaMarca extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'id_marca' => 'Id Marca',
-            'id_campo' => 'Id Campo',
-            'id_estado_material' => 'Id Estado Material',
+            'id_marca' => 'Marca',
+            'id_campo' => 'Campo',
+            'id_estado_material' => 'Estado Material',
             'valor1' => 'Valor1',
             'valor2' => 'Valor2',
         ];

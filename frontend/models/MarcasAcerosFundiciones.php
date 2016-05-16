@@ -66,10 +66,10 @@ class MarcasAcerosFundiciones extends \yii\db\ActiveRecord
 
     /**
      * @inheritdoc
-     * @return CampoCaracteristicaQuery the active query used by this AR class.
+     * @return MarcasAcerosFundicionesQuery the active query used by this AR class.
      */
     public static function find()
     {
-        return new CampoCaracteristicaQuery(get_called_class());
+        return new MarcasAcerosFundicionesQuery(get_called_class());
     }
 }

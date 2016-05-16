@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\CaracteristicaMarcaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Caracteristica Marcas';
+$this->title = 'Caracteristica de Marcas';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="caracteristica-marca-index">
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Caracteristica Marca', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Crear Caracteristica Marca', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -25,11 +25,29 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'id_marca',
-            'id_campo',
-            'id_estado_material',
+            [
+                'attribute' => 'id_marca', 
+                'filter' => yii\helpers\ArrayHelper::map(\app\models\MarcasAcerosFundiciones::find()->orderBy('marcas_aceros_fundiciones')->asArray()->all(), 'id', 'marcas_aceros_fundiciones'),
+                 'value' => function ($data) {
+                    return is_object($data->idMarca)?$data->idMarca->marcas_aceros_fundiciones:''; // $data['name'] for array data, e.g. using SqlDataProvider.
+                },
+            ],
+            [
+                'attribute' => 'id_campo', 
+                'filter' => yii\helpers\ArrayHelper::map(\app\models\CampoCaracteristica::find()->orderBy('nombre_campo')->asArray()->all(), 'id', 'nombre_campo'),
+                 'value' => function ($data) {
+                    return is_object($data->idCampo)?$data->idCampo->nombre_campo:''; // $data['name'] for array data, e.g. using SqlDataProvider.
+                },
+            ],
+            [
+                'attribute' => 'id_estado_material', 
+                'filter' => yii\helpers\ArrayHelper::map(\app\models\EstadoMaterial::find()->orderBy('tipo_caracteristica')->asArray()->all(), 'id', 'tipo_caracteristica'),
+                 'value' => function ($data) {
+                    return is_object($data->idEstadoMaterial)?$data->idEstadoMaterial->tipo_caracteristica:''; // $data['name'] for array data, e.g. using SqlDataProvider.
+                },
+            ],
             'valor1',
-            // 'valor2',
+             'valor2',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
