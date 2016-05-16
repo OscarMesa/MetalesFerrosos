@@ -27,11 +27,12 @@ class CaracteristicaMarcaController extends Controller
                 // deny all POST requests
                 [
                     'actions' => [],                    
-                    'allow' => false,
+                    'allow' => true,
                     'verbs' => ['POST']
                 ],
                 // allow authenticated users
                 [
+                    'actions' => [],
                     'allow' => true,
                     'roles' => ['@'],
                 ],
