@@ -39,6 +39,8 @@ AppAsset::register($this);
         ['label' => 'Justificación', 'url' => ['/site/about']],
         ['label' => 'Contacto', 'url' => ['/site/contact']],
         ['label' => 'Caracteristica de marca', 'url' => ['/caracteristica-marca/index']],
+        ['label' => 'Composicion quimica marca', 'url' => ['/composicion-quimica']],
+
     ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Salir', 'url' => ['/site/signup']];
