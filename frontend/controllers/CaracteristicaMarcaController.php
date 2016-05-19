@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use app\models\ComposicionQuimica;
 /**
  * CaracteristicaMarcaController implements the CRUD actions for CaracteristicaMarca model.
  */
@@ -18,29 +19,29 @@ class CaracteristicaMarcaController extends Controller
      * @inheritdoc
      */
     public function behaviors()
-{
-    return [
-        'access' => [
-            'class' => AccessControl::className(),
-            'only' => ['create', 'update','index'],
-            'rules' => [
-                // deny all POST requests
-                [
-                    'actions' => [],                    
-                    'allow' => true,
-                    'verbs' => ['POST']
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['create', 'update','index','clasificacion-materiales','busqueda-clasificacion-materiales'],
+                'rules' => [
+                    // deny all POST requests
+                    [
+                        'actions' => [],                    
+                        'allow' => true,
+                        'verbs' => ['POST']
+                    ],
+                    // allow authenticated users
+                    [
+                        'actions' => [],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                    // everything else is denied
                 ],
-                // allow authenticated users
-                [
-                    'actions' => [],
-                    'allow' => true,
-                    'roles' => ['@'],
-                ],
-                // everything else is denied
             ],
-        ],
-    ];
-}
+        ];
+    }
 
     /**
      * Lists all CaracteristicaMarca models.
@@ -85,6 +86,32 @@ class CaracteristicaMarcaController extends Controller
                 'model' => $model,
             ]);
         }
+    }
+
+    /**
+    *
+    */
+
+    public function actionClasificacionMateriales(){
+        $searchModel = new CaracteristicaMarcaSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('clasificaciones_materiales', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
+    *
+    */
+    public function actionBusquedaClasificacionMateriales()
+    {
+        echo json_encode(array(
+                'camposComposicionQuimica' => yii\helpers\ArrayHelper::map(\app\models\CampoComposicionQuimica::find()->all(), 'id', 'nombre_campo'),
+                'campoCaracteristicas' =>  yii\helpers\ArrayHelper::map(\app\models\CampoCaracteristica::find()->all(), 'id', 'nombre_campo')
+            ));
+        die;
     }
 
     /**
