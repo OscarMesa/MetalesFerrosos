@@ -5,14 +5,16 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "marcas_aceros_fundiciones".
+ * This is the model class for table "{{%marcas_aceros_fundiciones}}".
  *
  * @property integer $id
  * @property string $marcas_aceros_fundiciones
  * @property integer $id_subtipo_metal
  *
  * @property CaracteristicaMarca[] $caracteristicaMarcas
+ * @property ComposicionQuimica[] $composicionQuimicas
  * @property SubtipoMetales $idSubtipoMetal
+ * @property MarcasGestionDocumental[] $marcasGestionDocumentals
  */
 class MarcasAcerosFundiciones extends \yii\db\ActiveRecord
 {
@@ -21,7 +23,7 @@ class MarcasAcerosFundiciones extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'marcas_aceros_fundiciones';
+        return '{{%marcas_aceros_fundiciones}}';
     }
 
     /**
@@ -42,9 +44,9 @@ class MarcasAcerosFundiciones extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'marcas_aceros_fundiciones' => 'Marcas Aceros Fundiciones',
-            'id_subtipo_metal' => 'Id Subtipo Metal',
+            'id' => Yii::t('app', 'ID'),
+            'marcas_aceros_fundiciones' => Yii::t('app', 'Marcas Aceros Fundiciones'),
+            'id_subtipo_metal' => Yii::t('app', 'Id Subtipo Metal'),
         ];
     }
 
@@ -59,9 +61,25 @@ class MarcasAcerosFundiciones extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getComposicionQuimicas()
+    {
+        return $this->hasMany(ComposicionQuimica::className(), ['id_marca' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getIdSubtipoMetal()
     {
         return $this->hasOne(SubtipoMetales::className(), ['id' => 'id_subtipo_metal']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getMarcasGestionDocumentals()
+    {
+        return $this->hasMany(MarcasGestionDocumental::className(), ['id_marca' => 'id']);
     }
 
     /**

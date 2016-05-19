@@ -86,20 +86,6 @@
 	    <div class="panel-heading">Propiedades del metal</div>
 		<div style="overflow-x: scroll;" class="panel-body">
 
-			<?php /*Pjax::begin(); ?>    <?= GridView::widget([
-				        'dataProvider' => $dataProvider,
-				        'filterModel' => $searchModel,
-				        'columns' => [
-				            ['class' => 'yii\grid\SerialColumn'],
-
-				            'id',
-				            'nombre_campo',
-
-				            ['class' => 'yii\grid\ActionColumn'],
-				        ],
-				    ]);  Pjax::end(); */?>
-					
-
 				  <?php Pjax::begin(); ?>   
 				 <?= GridView::widget([
 			        'dataProvider' => $dataProvider,
@@ -108,6 +94,19 @@
 			            ['class' => 'yii\grid\SerialColumn'],
 
 			            'id',
+			             [
+			                'label' => 'Gestion documental',
+			                'format' => 'raw',
+			                 'value' => function ($data) {
+			                 	$html = "<ul>";
+			                 	foreach ($data->idMarca->getMarcasGestionDocumentals()->all() as $documento) {
+			                 	 	$html .= "<li><a target='_blank' href='".Url::toRoute(['caracteristica-marca/descargar-documento','doc' => $documento->id ])."'>".$documento->nombre_archivo."</a></li>";
+			                 	 } 
+			                 	$html .= "<ul>";
+			                    return $html;
+			                },
+			            ],
+
 			            [
 			                'label' => 'Tipo',
 			                'filter' => yii\helpers\ArrayHelper::map(\app\models\TipoMetales::find()->orderBy('tipo_metal')->asArray()->all(), 'id', 'tipo_metal'),

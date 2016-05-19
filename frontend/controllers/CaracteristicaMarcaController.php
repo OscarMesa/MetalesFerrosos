@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use Yii;
 use app\models\CaracteristicaMarca;
 use app\models\CaracteristicaMarcaSearch;
+use app\models\MarcasGestionDocumental;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -23,7 +24,7 @@ class CaracteristicaMarcaController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['create', 'update','index','clasificacion-materiales','busqueda-clasificacion-materiales'],
+                'only' => ['create', 'update','index','clasificacion-materiales','busqueda-clasificacion-materiales', 'descargar-documento'],
                 'rules' => [
                     // deny all POST requests
                     [
@@ -56,6 +57,19 @@ class CaracteristicaMarcaController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+
+    public function actionDescargarDocumento()
+    {
+        $documento = MarcasGestionDocumental::find()
+                                ->where(['id' => $_GET['doc']])
+                                ->one();
+        //print_r($documento);
+
+        $file = \Yii::$app->basePath.DIRECTORY_SEPARATOR.$documento->ruta_completa.DIRECTORY_SEPARATOR.$documento->nombre_archivo;
+       
+        Yii::$app->response->xSendFile($file);
+             //                   die;
     }
 
     /**
