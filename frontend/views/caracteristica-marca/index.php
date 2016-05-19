@@ -25,11 +25,26 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
+            'id',
+            [
+                'label' => 'Tipo',
+                'filter' => yii\helpers\ArrayHelper::map(\app\models\TipoMetales::find()->orderBy('tipo_metal')->asArray()->all(), 'id', 'tipo_metal'),
+                 'value' => function ($data) {
+                    return $data->idMarca->idSubtipoMetal->idTipoMetal->tipo_metal; // $data['name'] for array data, e.g. using SqlDataProvider.
+                },
+            ],
+            [
+                'label' => 'Subtipo',
+                'filter' => yii\helpers\ArrayHelper::map(\app\models\SubtipoMetales::find()->orderBy('subtipo_metal')->asArray()->all(), 'id', 'subtipo_metal'),
+                 'value' => function ($data) {
+                    return $data->idMarca->idSubtipoMetal->subtipo_metal; // $data['name'] for array data, e.g. using SqlDataProvider.
+                },
+            ],
             [
                 'attribute' => 'id_marca', 
                 'filter' => yii\helpers\ArrayHelper::map(\app\models\MarcasAcerosFundiciones::find()->orderBy('marcas_aceros_fundiciones')->asArray()->all(), 'id', 'marcas_aceros_fundiciones'),
                  'value' => function ($data) {
-                    return is_object($data->idMarca)?$data->idMarca->marcas_aceros_fundiciones:''; // $data['name'] for array data, e.g. using SqlDataProvider.
+                    return $data->idMarca->marcas_aceros_fundiciones; 
                 },
             ],
             [
