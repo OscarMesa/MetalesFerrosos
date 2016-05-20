@@ -1,5 +1,6 @@
 <?php
 	use app\models\TipoMetales;
+	use app\models\EstadoMaterial;
 	use yii\helpers\Url;
 	use yii\web\View;
 	use yii\helpers\Html;
@@ -70,6 +71,24 @@
 
 	    			</div>
 				 </div>
+
+				 <?php 
+
+				 	foreach (EstadoMaterial::find()->all() as $estado) {
+				 		?>
+				 			<div id="esadomaterial_<?php echo $estado->id; ?>" style="" class="panel panel-danger">
+				 				<div class="panel-heading">
+				    				<div class="checkbox content_subtipo_metal" style="margin: 0px;">
+									    <label>
+									      <input type="checkbox" class="" name="EstadoMaterial[id]" value="<?php echo $estado->id; ?>"> <b><?php echo $estado->tipo_caracteristica; ?></b>
+									    </label>
+									 </div>
+				    			</div>
+				 			</div>
+				 		<?php
+				 	}
+
+				 ?>
 
 
 				</form> 
