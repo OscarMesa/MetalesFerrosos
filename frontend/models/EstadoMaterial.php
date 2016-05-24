@@ -14,6 +14,10 @@ use Yii;
  */
 class EstadoMaterial extends \yii\db\ActiveRecord
 {
+    const LAMINADO_EN_CALIENTE = 1;
+    const CALIBRADO = 2;
+    const TRATAMIENTO_TERMICO = 3;
+    
     /**
      * @inheritdoc
      */
