@@ -126,7 +126,7 @@
 			                 'value' => function ($data) {
 			                 	$html = "<ul>";
 			                 	foreach ($data->idMarca->getMarcasGestionDocumentals()->all() as $documento) {
-			                 	 	$html .= "<li><a target='_blank' href='".Url::toRoute(['caracteristica-marca/descargar-documento','doc' => $documento->id ])."'>".$documento->nombre_archivo."</a></li>";
+			                 	 	$html .= "<li><a  data-method='post' href='".Url::toRoute(['caracteristica-marca/descargar-documento','doc' => $documento->id ])."' target='_blank'>".$documento->nombre_archivo."</a></li>";
 			                 	 } 
 			                 	$html .= "<ul>";
 			                    return $html;
