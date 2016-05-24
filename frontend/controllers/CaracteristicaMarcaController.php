@@ -66,10 +66,27 @@ class CaracteristicaMarcaController extends Controller
                                 ->one();
         //print_r($documento);
 
-        $file = \Yii::$app->basePath.DIRECTORY_SEPARATOR.$documento->ruta_completa.DIRECTORY_SEPARATOR.$documento->nombre_archivo;
-       
-        Yii::$app->response->xSendFile($file);
-             //                   die;
+       $fullPath = \Yii::$app->basePath.DIRECTORY_SEPARATOR.$documento->ruta_completa.DIRECTORY_SEPARATOR.$documento->nombre_archivo;
+
+       if($fullPath) {
+            $fsize = filesize($fullPath);
+            $path_parts = pathinfo($fullPath);
+            $ext = strtolower($path_parts["extension"]);
+            switch ($ext) {
+                case "pdf":
+                header("Content-Disposition: attachment; filename=\"".$documento->nombre_archivo."\""); // use 'attachment' to force a download
+                header("Content-type: application/pdf"); // add here more headers for diff. extensions
+                break;
+                default;
+                header("Content-type: application/octet-stream");
+                header("Content-Disposition: filename=\"".$documento->nombre_archivo."\"");
+            }
+            if($fsize) {//checking if file size exist
+              header("Content-length: $fsize");
+            }
+            readfile($fullPath);
+            exit;
+        }
     }
 
     /**
