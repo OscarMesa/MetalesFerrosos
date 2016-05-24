@@ -39,6 +39,7 @@ AppAsset::register($this);
         ['label' => 'Justificación', 'url' => ['/site/about']],
         ['label' => 'Contacto', 'url' => ['/site/contact']],
         ['label' => 'Caracteristica de marca', 'url' => ['/caracteristica-marca/index']],
+        ['label' => 'Clasificar material', 'url' => ['/caracteristica-marca/clasificacion-materiales']],
         ['label' => 'Composicion quimica marca', 'url' => ['/composicion-quimica']],
 
     ];
