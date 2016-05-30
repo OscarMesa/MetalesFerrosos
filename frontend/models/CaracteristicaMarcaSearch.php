@@ -88,17 +88,17 @@ class CaracteristicaMarcaSearch extends CaracteristicaMarca
             //print_r($_REQUEST['TratamientoTermico']);die;
             foreach ($_REQUEST['TratamientoTermico'] as $id_campo => $intervalo) {
                 $intervalo['min'] = empty($intervalo['min'])?0:$intervalo['min'];
-                $intervalo['min'] = empty($intervalo['max'])?0:$intervalo['max'];
-                $query->orWhere('id_campo = '.$id_campo." AND valor1 >= ".$intervalo['min'].' AND valor2 <= '.$intervalo['max']);
+                $intervalo['max'] = empty($intervalo['max'])?0:$intervalo['max'];
+                $query->andWhere('id_campo = '.$id_campo." AND valor1 >= ".$intervalo['min'].' AND valor2 <= '.$intervalo['max']);
             }
         }
 
-
+        //echo "<pre>";print_r($_GET);die();
         if(isset($_REQUEST['ComposicionQuimica'])){
             foreach ($_REQUEST['ComposicionQuimica'] as $id_campo => $intervalo) {
                 $intervalo['min'] = empty($intervalo['min'])?0:$intervalo['min'];
-                $intervalo['min'] = empty($intervalo['max'])?0:$intervalo['max'];
-                $query->orWhere('composicion_quimica.id_campo_composicion = '.$id_campo." AND composicion_quimica.min >= ".$intervalo['min'].' AND composicion_quimica.max <= '.$intervalo['max']);
+                $intervalo['max'] = empty($intervalo['max'])?0:$intervalo['max'];
+                $query->andWhere('composicion_quimica.id_campo_composicion = '.$id_campo." AND composicion_quimica.min >= ".$intervalo['min'].' AND composicion_quimica.max <= '.$intervalo['max']);
             }
         }
 
